@@ -8,7 +8,7 @@ pipeline {
               archive 'target/*.jar' //so that kanat fffthey can be downloaded later
             }
         }  
-       stage('Unit Tests - JUnit and Jacoco') {
+      stage('Unit Tests - JUnit and Jacoco') {
       steps {
         sh "mvn test"
       }
@@ -28,13 +28,14 @@ pipeline {
           pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
         }
       }
+     }
     
     stage('SonarQube - SAST') {
             steps {
               sh "mvn sonar:sonar -Dsonar.projectKey=numeric-aplication -Dsonar.host.url=http://192.168.0.21:9000 -Dsonar.login=c5319987449780570f582877d25526a557d979d3"
             }
         }  
-    }
+    
     stage('Docker Build and Push') {
       steps {
         withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
