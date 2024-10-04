@@ -8,11 +8,16 @@ pipeline {
               archive 'target/*.jar' //so that kanat fffthey can be downloaded later
             }
         }  
-      stage('Unit Tests') {
-            steps {
-              sh "mvn test"
-              
-            }
-        }   
+       stage('Unit Tests - JUnit and Jacoco') {
+      steps {
+        sh "mvn test"
+      }
+      post {
+        always {
+          junit 'target/surefire-reports/*.xml'
+          jacoco execPattern: 'target/jacoco.exec'
+        }
+      }
     }
+  }
 }
