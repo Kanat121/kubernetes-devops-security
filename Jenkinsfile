@@ -18,7 +18,7 @@ pipeline {
           jacoco execPattern: 'target/jacoco.exec'
         }
       }
-      }
+    }
      stage('Mutation Tests - PIT') {
       steps {
         sh "mvn org.pitest:pitest-maven:mutationCoverage"
@@ -39,7 +39,8 @@ pipeline {
             waitForQualityGate abortPipeline: true
           }
         }
-        }  
+    }
+  }  
     
     stage('Docker Build and Push') {
       steps {
