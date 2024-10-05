@@ -17,11 +17,7 @@ pipeline {
           junit 'target/surefire-reports/*.xml'
           jacoco execPattern: 'target/jacoco.exec'
         }
-        timeout(time: 2, unit: 'MINUTES') {
-          script {
-            waitForQualityGate abortPipeline: true
-          }
-        }
+      }
       }
      stage('Mutation Tests - PIT') {
       steps {
@@ -38,6 +34,11 @@ pipeline {
             steps {
               sh "mvn sonar:sonar -Dsonar.projectKey=numeric-aplication -Dsonar.host.url=http://192.168.0.21:9000 -Dsonar.login=c5319987449780570f582877d25526a557d979d3"
             }
+            timeout(time: 2, unit: 'MINUTES') {
+            script {
+            waitForQualityGate abortPipeline: true
+          }
+        }
         }  
     
     stage('Docker Build and Push') {
