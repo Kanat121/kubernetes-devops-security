@@ -1,6 +1,13 @@
 pipeline {
   agent any
-
+  environment {
+    deploymentName = "devsecops"
+    containerName = "devsecops-container"
+    serviceName = "devsecops-svc"
+    imageName = "k1235/numeric-app:${GIT_COMMIT}"
+    applicationURL = "http://192.168.0.20/"
+    applicationURI = "/increment/99"
+  }
   stages {
       stage('Build Artifact') {
             steps {
@@ -81,12 +88,9 @@ pipeline {
           steps {
             parallel(
               "Deployment": {
-                withKubeConfig([credentialsId: 'kubeconfig']) {
-                  sh "sed -i 's#replace#k1235/numeric-app:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
-                  sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'  
-                  sh 'chmod u+x ./kubectl'  
-                  sh "./kubectl apply -f k8s_deployment_service.yaml"
-                }
+                 withKubeConfig([credentialsId: 'kubeconfig']) {
+              sh "bash k8s-deployment.sh"
+              }
               },
               "Rollout Status": {
                 withKubeConfig([credentialsId: 'kubeconfig']) {
