@@ -84,7 +84,7 @@ pipeline {
  //     }
  //   }
 */
-   stage('K8S Deployment - DEV') {
+   stage('K8S Deployment-Test') {
        steps {
          parallel(
            "Deployment": {
