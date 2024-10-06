@@ -92,7 +92,7 @@
 				   <version>6.1.6</version>
 				   <configuration>
 				      <format>ALL</format>
-				      <!-- Устанавил на 11 порог оценки в связи с тем что старые библиотеки не возможно обновить 
+				      <!-- Устанавил на 11 порог оценки в связи с тем что старые библиотеки не возможно обновить -->
 				      <failBuildOnCVSS>11</failBuildOnCVSS>
 				      <!-- fail the build for CVSS greater than or equal to 5 -->
 				      <!-- 
