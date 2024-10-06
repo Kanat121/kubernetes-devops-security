@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: kube-scan
+  name: kube-scan 
 ---
 apiVersion: v1
 kind: ConfigMap
