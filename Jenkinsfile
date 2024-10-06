@@ -77,25 +77,25 @@ pipeline {
 //      }
 //    }
 
-  stage('K8S Deployment - DEV') {
-      steps {
-        parallel(
-          "Deployment": {
-            withKubeConfig([credentialsId: 'kubeconfig']) {
-              sh "sed -i 's#replace#k1235/numeric-app:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
-              sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'  
-              sh 'chmod u+x ./kubectl'  
-              sh "./kubectl apply -f k8s_deployment_service.yaml"
-            }
-          },
-          "Rollout Status": {
-            withKubeConfig([credentialsId: 'kubeconfig']) {
-              sh "bash k8s-deployment-rollout-status.sh"
-            }
+      stage('K8S Deployment - DEV') {
+          steps {
+            parallel(
+              "Deployment": {
+                withKubeConfig([credentialsId: 'kubeconfig']) {
+                  sh "sed -i 's#replace#k1235/numeric-app:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
+                  sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'  
+                  sh 'chmod u+x ./kubectl'  
+                  sh "./kubectl apply -f k8s_deployment_service.yaml"
+                }
+              },
+              "Rollout Status": {
+                withKubeConfig([credentialsId: 'kubeconfig']) {
+                  sh "bash k8s-deployment-rollout-status.sh"
+                }
+              }
+            )
           }
-        )
-      }
-    }
+        }
 
   }
   }
