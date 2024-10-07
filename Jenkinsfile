@@ -101,7 +101,7 @@ pipeline {
       }
     }
 
-   stage('K8s Deployment-Test') {
+   stage('K8s Deployment - Test') {
        steps {
          parallel(
            "Deployment": {
