@@ -84,7 +84,7 @@ pipeline {
  //     }
  //   }
 */
-   stage('Vulnerability Scan - Kubernetes') {
+   stage('Vulnerability Scan - K8s') {
       steps {
         parallel(
           "OPA Scan": {
@@ -97,7 +97,7 @@ pipeline {
       }
     }
 
-   stage('K8S Deployment-Test') {
+   stage('K8s Deployment-Test') {
        steps {
          parallel(
            "Deployment": {
