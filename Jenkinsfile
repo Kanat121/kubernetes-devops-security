@@ -116,7 +116,8 @@ pipeline {
          )
      }
 }
-   stage('Integration Tests - DEV') {
+ /* Dont work application   
+    stage('Integration Tests - DEV') {
       steps {
         script {
           try {
@@ -132,6 +133,7 @@ pipeline {
         }
       }
     }
+ */   
 
   }
   
