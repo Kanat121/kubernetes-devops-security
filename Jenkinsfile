@@ -109,7 +109,7 @@ pipeline {
            }
            },
            "Rollout Status": {
-             withKubeConfig([credentialsId: 'kubeconfig']) {
+             withKubeConfig([credentialsId: 'kubeconfig', serverUrl: 'https://192.168.0.20:6443']) {
                sh "bash k8s-deployment-rollout-status.sh"
              }
            }
@@ -120,11 +120,11 @@ pipeline {
       steps {
         script {
           try {
-            withKubeConfig([credentialsId: 'kubeconfig']) {
+            withKubeConfig([credentialsId: 'kubeconfig', serverUrl: 'https://192.168.0.20:6443']) {
               sh "bash integration-test.sh"
             }
           } catch (e) {
-            withKubeConfig([credentialsId: 'kubeconfig']) {
+            withKubeConfig([credentialsId: 'kubeconfig', serverUrl: 'https://192.168.0.20:6443']) {
               sh "kubectl -n default rollout undo deploy ${deploymentName}"
             }
             throw e
